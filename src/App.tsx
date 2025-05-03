@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { Effect } from "effect";
+import { useCallback, useMemo, useState } from "react";
 import viteLogo from "/vite.svg";
 import reactLogo from "./assets/react.svg";
-import "./App.css";
 
 export function App() {
   const [count, setCount] = useState(0);
+
+  const incrementTask = useMemo(
+    () => Effect.sync(() => setCount((current) => current + 1)),
+    []
+  );
+
+  const increment = useCallback(() => Effect.runSync(incrementTask), [incrementTask]);
 
   return (
     <>
@@ -18,7 +25,7 @@ export function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button type="button" onClick={() => setCount((count) => count + 1)}>
+        <button type="button" onClick={increment}>
           count is {count}
         </button>
         <p>
