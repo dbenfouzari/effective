@@ -9,6 +9,7 @@ export default defineConfig({
   plugins: [
     TanStackRouterVite({
       autoCodeSplitting: true,
+      routesDirectory: "src/app/routes",
     }),
     react(),
     tailwindcss(),

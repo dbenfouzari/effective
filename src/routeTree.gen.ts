@@ -10,18 +10,11 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as AboutImport } from './routes/about'
-import { Route as IndexImport } from './routes/index'
-import { Route as DataSheetsIndexImport } from './routes/data-sheets/index'
+import { Route as rootRoute } from './app/routes/__root'
+import { Route as IndexImport } from './app/routes/index'
+import { Route as DataSheetsIndexImport } from './app/routes/data-sheets/index'
 
 // Create/Update Routes
-
-const AboutRoute = AboutImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
@@ -46,13 +39,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutImport
-      parentRoute: typeof rootRoute
-    }
     '/data-sheets/': {
       id: '/data-sheets/'
       path: '/data-sheets'
@@ -67,41 +53,36 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
   '/data-sheets': typeof DataSheetsIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
   '/data-sheets': typeof DataSheetsIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
   '/data-sheets/': typeof DataSheetsIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/data-sheets'
+  fullPaths: '/' | '/data-sheets'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/data-sheets'
-  id: '__root__' | '/' | '/about' | '/data-sheets/'
+  to: '/' | '/data-sheets'
+  id: '__root__' | '/' | '/data-sheets/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
   DataSheetsIndexRoute: typeof DataSheetsIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
   DataSheetsIndexRoute: DataSheetsIndexRoute,
 }
 
@@ -116,15 +97,11 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/about",
         "/data-sheets/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
-    },
-    "/about": {
-      "filePath": "about.tsx"
     },
     "/data-sheets/": {
       "filePath": "data-sheets/index.tsx"
