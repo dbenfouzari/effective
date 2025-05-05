@@ -6,11 +6,11 @@ export const getColumns = (language: string): ColumnDef<DataSheetItemDto>[] => {
   return [
     {
       accessorKey: "name",
-      header: language === "fr" ? "Nom" : "Name",
+      header: "Name",
     },
     {
       accessorKey: "updatedAt",
-      header: language === "fr" ? "Dernière mise à jour" : "Last Updated",
+      header: "Last Updated",
       cell: ({ row }) => {
         const date = row.getValue<DateTime.Utc>("updatedAt");
 
