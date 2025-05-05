@@ -1,5 +1,5 @@
 import { Schema } from "effect";
-import { Variety } from "./Variety";
+import { Variety, VarietyId } from "./Variety";
 
 const CustomVarietyIdTypeId = Symbol.for("@DataSheets/CustomVarietyId");
 export const CustomVarietyId = Schema.UUID.pipe(
@@ -13,7 +13,7 @@ export const CustomVariety = Schema.extend(
   Variety,
   Schema.Struct({
     id: CustomVarietyId,
-    rootVarietyId: Schema.Option(Variety),
+    rootVarietyId: Schema.OptionFromSelf(VarietyId),
   })
 );
 
